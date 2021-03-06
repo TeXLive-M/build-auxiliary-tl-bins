@@ -1,8 +1,10 @@
 #!/bin/sh
 
-source versions.sh
+export MAKE=make
+
+. versions.sh
 if [ -f settings.sh ]; then
-	source settings.sh
+	. settings.sh
 fi
 
 download=true
@@ -45,7 +47,7 @@ if [ "$build" = true ]; then
 
 	# lz4
 	cd lz4-${LZ_VERSION}
-	make
+	$MAKE
 	strip lz4
 	ls -l -h lz4
 	cd $BUILD_DIR
@@ -56,7 +58,7 @@ if [ "$build" = true ]; then
 		--disable-nls \
 		--disable-shared \
 		--disable-threads
-	make
+	$MAKE
 	strip src/xz/xz
 	ls -l -h src/xz/xz
 	cd $BUILD_DIR
@@ -76,7 +78,7 @@ if [ "$build" = true ]; then
 		--without-libuuid \
 		--without-ssl \
 		--without-zlib
-	make
+	$MAKE
 	strip src/wget
 	ls -l -h src/wget
 	cd $BUILD_DIR
